@@ -9,6 +9,8 @@ let inputTextBlue = null;
 
 let shapeSquare = null;
 
+let r = 0,g = 0,b = 0;
+
 window.addEventListener('load', init);
 
 function init() {
@@ -23,28 +25,28 @@ function init() {
     inputTextGreen = document.getElementById('inputTextGreen');
     inputTextBlue = document.getElementById('inputTextBlue');
 
-    inputRangeRed.addEventListener('change', changeRed);
-    inputRangeGreen.addEventListener('change', changeGreen);
-    inputRangeBlue.addEventListener('change', changeBlue);
+    inputRangeRed.addEventListener('change', inputRangeChange);
+    inputRangeGreen.addEventListener('change', inputRangeChange);
+    inputRangeBlue.addEventListener('change', inputRangeChange);
     
-    syncShape();
+    syncComponents();
 }
 
-function changeRed(event){       
-    inputTextRed.value = event.target.value;
-    syncShape();
+function inputRangeChange(event){  
+    let value = event.target.value;
+    let id = event.target.id;
+    switch (id){
+        case 'inputRangeRed': r = value; break;
+        case 'inputRangeGreen': g = value; break;
+        case 'inputRangeBlue': b = value; break;
+    }
+    
+    syncComponents();
 }
 
-function changeGreen(event){
-    inputTextGreen.value = event.target.value;
-    syncShape();
-}
-
-function changeBlue(event){
-    inputTextBlue.value = event.target.value;
-    syncShape();
-}
-
-function syncShape(){
-    shapeSquare.style.backgroundColor = `rgb(${inputRangeRed.value}, ${inputRangeGreen.value}, ${inputRangeBlue.value})`;
+function syncComponents(){
+    inputTextRed.value = r;
+    inputTextGreen.value = g;
+    inputTextBlue.value = b;
+    shapeSquare.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
